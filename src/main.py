@@ -9,24 +9,29 @@ You will implement the functions in recommender.py:
 - recommend_songs
 """
 
+from tabulate import tabulate
 from src.recommender import load_songs, recommend_songs
 
 
 def print_recommendations(recommendations: list) -> None:
-    """Prints the top recommended songs in a clean, readable CLI format."""
-    print("\n" + "=" * 45)
-    print("  🎵  Top Music Recommendations")
-    print("=" * 45 + "\n")
+    """Prints the top recommended songs as a formatted table."""
+    print("\n" + "=" * 75)
+    print("  Top Music Recommendations")
+    print("=" * 75 + "\n")
 
+    rows = []
     for rank, (song, score, explanation) in enumerate(recommendations, start=1):
-        print(f"{rank}. {song['title']} — {song['artist']}")
-        print(f"   Score: {score:.2f}")
-        print(f"   Reasons:")
-        for reason in explanation.split(" | "):
-            print(f"     • {reason}")
-        print()
+        reasons = "\n".join(f"  {r}" for r in explanation.split(" | "))
+        rows.append([rank, song['title'], song['artist'], f"{score:.2f}", reasons])
 
-    print("=" * 45)
+    print(tabulate(
+        rows,
+        headers=["#", "Title", "Artist", "Score", "Reasons"],
+        tablefmt="outline",
+        colalign=("center", "left", "left", "center", "left"),
+    ))
+
+    print()
 
 
 def main() -> None:
@@ -38,6 +43,8 @@ def main() -> None:
         "target_energy": 0.80,
         "target_valence": 0.75,
         "target_acousticness": 0.15,
+        "target_decade": 2020,
+        "target_mood_tags": ["happy", "uplifting"],
     }
 
     recommendations = recommend_songs(user_prefs, songs, k=5)

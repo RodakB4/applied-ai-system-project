@@ -48,21 +48,6 @@ class Recommender:
 def load_songs(csv_path: str) -> List[Dict]:
     """
     Loads songs from a CSV file and returns them as a list of dictionaries.
-    Required by src/main.py
-
-    Each dictionary looks like:
-    {
-        'id': 1,
-        'title': 'Sunrise City',
-        'artist': 'Neon Echo',
-        'genre': 'pop',
-        'mood': 'happy',
-        'energy': 0.82,
-        'tempo_bpm': 118.0,
-        'valence': 0.84,
-        'danceability': 0.79,
-        'acousticness': 0.18
-    }
     """
     import csv
 
@@ -73,31 +58,26 @@ def load_songs(csv_path: str) -> List[Dict]:
 
         for row in reader:
             song = {
-                'id':           int(row['id']),
-                'title':        row['title'],
-                'artist':       row['artist'],
-                'genre':        row['genre'],
-                'mood':         row['mood'],
-                'energy':       float(row['energy']),
-                'tempo_bpm':    float(row['tempo_bpm']),
-                'valence':      float(row['valence']),
-                'danceability': float(row['danceability']),
-                'acousticness': float(row['acousticness']),
+                'id':             int(row['id']),
+                'title':          row['title'],
+                'artist':         row['artist'],
+                'genre':          row['genre'],
+                'mood':           row['mood'],
+                'energy':         float(row['energy']),
+                'tempo_bpm':      float(row['tempo_bpm']),
+                'valence':        float(row['valence']),
+                'danceability':   float(row['danceability']),
+                'acousticness':   float(row['acousticness']),
+                'popularity':     int(row['popularity']),
+                'release_decade': int(row['release_decade']),
+                'mood_tags':      row['mood_tags'].split('|'),
             }
             songs.append(song)
 
     return songs
 
 def score_song(user_prefs: Dict, song: Dict) -> Tuple[float, List[str]]:
-    """
-    Scores a single song against a user's preferences.
-
-    Returns:
-        score   - a float between 0.0 and 1.0
-        reasons - a list of strings explaining each component of the score
-
-    user_prefs keys: genre, mood, target_energy, target_valence, target_acousticness
-    song keys:       genre, mood, energy, valence, acousticness (plus others)
+    """Compute a weighted score and explanation for a song based on user preferences.
     """
     score = 0.0
     reasons = []
@@ -130,16 +110,36 @@ def score_song(user_prefs: Dict, song: Dict) -> Tuple[float, List[str]]:
     score += acousticness_score
     reasons.append(f"acousticness close (+{acousticness_score:.2f})")
 
+    # --- Popularity: higher popularity = higher bonus, max +0.10 ---
+
+    popularity_score = 0.10 * (song['popularity'] / 100)
+    score += popularity_score
+    reasons.append(f"popularity {song['popularity']}/100 (+{popularity_score:.2f})")
+
+    # --- Release decade: proximity within 20 years, max +0.05 ---
+
+    if 'target_decade' in user_prefs:
+        decade_diff = abs(song['release_decade'] - user_prefs['target_decade'])
+        decade_proximity = max(0.0, 1 - decade_diff / 20)
+        decade_score = 0.05 * decade_proximity
+        score += decade_score
+        reasons.append(f"decade {song['release_decade']} (+{decade_score:.2f})")
+
+    # --- Mood tags: partial credit for each matching tag, max +0.10 ---
+
+    if user_prefs.get('target_mood_tags'):
+        user_tags = set(user_prefs['target_mood_tags'])
+        song_tags = set(song['mood_tags'])
+        matches = len(user_tags & song_tags)
+        tag_score = 0.10 * (matches / len(user_tags))
+        score += tag_score
+        reasons.append(f"mood tags {matches}/{len(user_tags)} match (+{tag_score:.2f})")
+
     return score, reasons
 
 
 def recommend_songs(user_prefs: Dict, songs: List[Dict], k: int = 5) -> List[Tuple[Dict, float, str]]:
-    """
-    Scores all songs, ranks them, and returns the top k matches.
-    Required by src/main.py
-
-    Returns a list of tuples: (song_dict, score, explanation_string)
-    """
+    """Rank songs by score and return the top k recommendations with reasons."""
     # Step 1: Score every song
     scored = []
     for song in songs:

@@ -1,21 +1,29 @@
-id,title,artist,genre,mood,energy,tempo_bpm,valence,danceability,acousticness
-1,Sunrise City,Neon Echo,pop,happy,0.82,118,0.84,0.79,0.18
-2,Midnight Coding,LoRoom,lofi,chill,0.42,78,0.56,0.62,0.71
-3,Storm Runner,Voltline,rock,intense,0.91,152,0.48,0.66,0.10
-4,Library Rain,Paper Lanterns,lofi,chill,0.35,72,0.60,0.58,0.86
-5,Gym Hero,Max Pulse,pop,intense,0.93,132,0.77,0.88,0.05
-6,Spacewalk Thoughts,Orbit Bloom,ambient,chill,0.28,60,0.65,0.41,0.92
-7,Coffee Shop Stories,Slow Stereo,jazz,relaxed,0.37,90,0.71,0.54,0.89
-8,Night Drive Loop,Neon Echo,synthwave,moody,0.75,110,0.49,0.73,0.22
-9,Focus Flow,LoRoom,lofi,focused,0.40,80,0.59,0.60,0.78
-10,Rooftop Lights,Indigo Parade,indie pop,happy,0.76,124,0.81,0.82,0.35
-11,Lagos Bounce,Ayo Femi,afrobeat,euphoric,0.88,112,0.91,0.94,0.14
-12,Cathedral Light,Vesper Strings,classical,peaceful,0.22,68,0.74,0.28,0.97
-13,Bury the Block,Coldface,drill,aggressive,0.95,140,0.31,0.77,0.04
-14,Neon Seoul,Park Hyunjin,k-pop,energetic,0.86,128,0.83,0.90,0.09
-15,Cumbia del Rio,Los Vientos,latin,festive,0.80,105,0.88,0.91,0.32
-16,Roots and Rain,Irie Monroe,reggae,uplifting,0.58,88,0.79,0.68,0.61
-17,Morning Grace,The Harmon Choir,gospel,joyful,0.69,96,0.93,0.72,0.55
-18,Ember Drift,Solace,ambient,melancholic,0.24,58,0.32,0.34,0.88
-19,Saudade Express,Trio Mineiro,bossa nova,nostalgic,0.41,102,0.67,0.59,0.83
-20,Fracture Point,Gridfault,metal,intense,0.97,168,0.22,0.52,0.06
+id,title,artist,genre,mood,energy,tempo_bpm,valence,danceability,acousticness,popularity,release_decade,mood_tags
+1,Sunrise City,Neon Echo,pop,happy,0.82,118,0.84,0.79,0.18,72,2020,happy|energetic|uplifting
+2,Midnight Coding,LoRoom,lofi,chill,0.42,78,0.56,0.62,0.71,65,2020,chill|focused|calm
+3,Storm Runner,Voltline,rock,intense,0.91,152,0.48,0.66,0.10,78,2010,intense|aggressive|powerful
+4,Library Rain,Paper Lanterns,lofi,chill,0.35,72,0.60,0.58,0.86,61,2020,chill|peaceful|calm
+5,Gym Hero,Max Pulse,pop,intense,0.93,132,0.77,0.88,0.05,85,2020,intense|energetic|motivated
+6,Spacewalk Thoughts,Orbit Bloom,ambient,chill,0.28,60,0.65,0.41,0.92,48,2010,chill|dreamy|ethereal
+7,Coffee Shop Stories,Slow Stereo,jazz,relaxed,0.37,90,0.71,0.54,0.89,55,2000,relaxed|cozy|nostalgic
+8,Night Drive Loop,Neon Echo,synthwave,moody,0.75,110,0.49,0.73,0.22,70,2010,moody|atmospheric|dark
+9,Focus Flow,LoRoom,lofi,focused,0.40,80,0.59,0.60,0.78,63,2020,focused|calm|productive
+10,Rooftop Lights,Indigo Parade,indie pop,happy,0.76,124,0.81,0.82,0.35,74,2020,happy|romantic|uplifting
+11,Lagos Bounce,Ayo Femi,afrobeat,euphoric,0.88,112,0.91,0.94,0.14,80,2020,euphoric|energetic|joyful
+12,Cathedral Light,Vesper Strings,classical,peaceful,0.22,68,0.74,0.28,0.97,42,1990,peaceful|serene|ethereal
+13,Bury the Block,Coldface,drill,aggressive,0.95,140,0.31,0.77,0.04,76,2020,aggressive|dark|intense
+14,Neon Seoul,Park Hyunjin,k-pop,energetic,0.86,128,0.83,0.90,0.09,88,2020,energetic|euphoric|uplifting
+15,Cumbia del Rio,Los Vientos,latin,festive,0.80,105,0.88,0.91,0.32,71,2000,festive|joyful|energetic
+16,Roots and Rain,Irie Monroe,reggae,uplifting,0.58,88,0.79,0.68,0.61,58,2010,uplifting|chill|peaceful
+17,Morning Grace,The Harmon Choir,gospel,joyful,0.69,96,0.93,0.72,0.55,62,2000,joyful|uplifting|peaceful
+18,Ember Drift,Solace,ambient,melancholic,0.24,58,0.32,0.34,0.88,44,2010,melancholic|dark|atmospheric
+19,Saudade Express,Trio Mineiro,bossa nova,nostalgic,0.41,102,0.67,0.59,0.83,53,1990,nostalgic|romantic|melancholic
+20,Fracture Point,Gridfault,metal,intense,0.97,168,0.22,0.52,0.06,79,2010,intense|aggressive|dark
+21,Golden Hour Glow,Malik Sol,r&b,romantic,0.62,94,0.85,0.76,0.38,82,2020,romantic|smooth|uplifting
+22,Block Party,Kaius Mane,hip-hop,energetic,0.85,95,0.72,0.91,0.06,90,2020,energetic|confident|joyful
+23,Ultraviolet,Pulse Theory,edm,euphoric,0.96,128,0.78,0.94,0.02,87,2010,euphoric|energetic|intense
+24,Dirt Road Honey,June Calloway,country,nostalgic,0.52,98,0.74,0.64,0.76,66,2000,nostalgic|romantic|peaceful
+25,Groove Kitchen,The Velvet Brass,funk,joyful,0.79,108,0.90,0.88,0.45,68,1990,joyful|energetic|euphoric
+26,Porch Light,Wren Valley,indie folk,melancholic,0.31,76,0.44,0.48,0.91,57,2010,melancholic|nostalgic|calm
+27,Ice in My Cup,Drako 9,trap,aggressive,0.88,142,0.35,0.85,0.03,83,2020,aggressive|confident|dark
+28,Whiskey Sunrise,Old Crow Blue,blues,nostalgic,0.45,84,0.55,0.57,0.82,48,1990,nostalgic|melancholic|relaxed

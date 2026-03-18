@@ -78,6 +78,9 @@ After scoring all songs, they are sorted in descending order and the top K are r
 - **Small dataset.** The catalog contains only 20 songs. With so few options, the system may return weak matches simply because nothing better exists — a limitation that would not exist at real-world scale.
 - **No learning from behavior.** The system never updates based on what the user skips, replays, or saves. Every session starts fresh from the same static profile, so it cannot improve or adapt over time.
 
+### Screenshots of Top 5 Music Recommendations
+![First two](image.png)
+![Last Three](image-1.png)
 ---
 
 ## Getting Started

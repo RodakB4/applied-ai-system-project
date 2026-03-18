@@ -17,17 +17,66 @@ Replace this paragraph with your own summary of what your version does.
 
 ## How The System Works
 
-Explain your design in plain language.
+This project implements a simplified **content-based music recommender** focused on *vibe similarity*. Given a user profile — describing their preferred genre, mood, energy level, valence, and acoustic feel — the system scores every song in the catalog by how closely it matches those preferences. Songs are ranked from best to worst match, and the top K results are returned as recommendations. No listening history or other users are involved; the system works purely from song attributes and stated user taste.
 
-Some prompts to answer:
+---
 
-- What features does each `Song` use in your system
-  - For example: genre, mood, energy, tempo
-- What information does your `UserProfile` store
-- How does your `Recommender` compute a score for each song
-- How do you choose which songs to recommend
+### Song Features Used
 
-You can include a simple diagram or bullet list if helpful.
+Each `Song` in the catalog is described by the following attributes:
+
+| Feature | Type | What It Captures |
+|---|---|---|
+| `genre` | categorical | The broad musical style (e.g., lo-fi, pop, rock, ambient) |
+| `mood` | categorical | The emotional intent (e.g., chill, happy, intense, focused) |
+| `energy` | float (0–1) | How high-energy or low-key the track feels |
+| `valence` | float (0–1) | Musical positivity — low = dark/melancholic, high = bright/uplifting |
+| `acousticness` | float (0–1) | How organic/acoustic vs. electronic/produced the track sounds |
+| `tempo_bpm` | float (BPM) | The speed of the track in beats per minute |
+| `danceability` | float (0–1) | How suitable the track is for dancing |
+
+### User Profile Features Used
+
+Each `UserProfile` stores the user's preferences that the recommender scores against:
+
+| Field | Type | What It Represents |
+|---|---|---|
+| `favorite_genre` | string | The genre the user most wants to hear |
+| `favorite_mood` | string | The mood the user is looking for |
+| `target_energy` | float (0–1) | The energy level the user wants in a song |
+| `target_valence` | float (0–1) | The emotional tone the user is looking for |
+| `likes_acoustic` | bool | Whether the user prefers acoustic over electronic sound |
+
+---
+
+### Algorithm Recipe
+
+Each song receives a score between 0.0 and 1.0 calculated as a weighted sum of five components:
+
+| Component | Formula | Max Points |
+|---|---|---|
+| Genre match | `1.0 if song.genre == favorite_genre else 0.0` | 0.30 |
+| Mood match | `1.0 if song.mood == favorite_mood else 0.0` | 0.25 |
+| Energy similarity | `0.20 × (1 − \|song.energy − target_energy\|)` | 0.20 |
+| Valence similarity | `0.15 × (1 − \|song.valence − target_valence\|)` | 0.15 |
+| Acousticness similarity | `0.10 × (1 − \|song.acousticness − target_acousticness\|)` | 0.10 |
+
+**Final score:**
+
+```
+score = genre_score + mood_score + energy_score + valence_score + acousticness_score
+```
+
+After scoring all songs, they are sorted in descending order and the top K are returned as recommendations.
+
+---
+
+### Potential Biases & Limitations
+
+- **Genre over-prioritization.** Genre carries 30% of the total score. A song from a different genre with an otherwise near-perfect vibe match will always be outranked by a same-genre song, even if the same-genre song sounds worse to the listener.
+- **Cross-genre misses.** A chill ambient track and a chill lo-fi track may feel identical to a listener, but the system treats them as different because the genre label doesn't match. Good recommendations can be filtered out this way.
+- **Small dataset.** The catalog contains only 20 songs. With so few options, the system may return weak matches simply because nothing better exists — a limitation that would not exist at real-world scale.
+- **No learning from behavior.** The system never updates based on what the user skips, replays, or saves. Every session starts fresh from the same static profile, so it cannot improve or adapt over time.
 
 ---
 

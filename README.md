@@ -14,6 +14,8 @@ This project is an extension of the **Music Recommender Simulation** from Module
 
 ## Architecture Overview
 
+![System Architecture](assets/architecture.png)
+
 ```
 User (plain English)
         │
@@ -228,7 +230,7 @@ The agentic loop was the most surprising part. A static recommender would silent
 
 ## Video Walkthrough
 
-> *Loom link: [Add your Loom link here before submission]*
+> *Loom link: [https://www.loom.com/share/111a6eb5e5b047bcabf5c3b307aba7cf](https://www.loom.com/share/111a6eb5e5b047bcabf5c3b307aba7cf)*
 
 The walkthrough demonstrates: 3 end-to-end runs with different inputs, the agent retry behavior, the reliability test harness output, and the AI explanation feature.
 
